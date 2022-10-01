@@ -6,23 +6,13 @@ function Todo({ title, removeTodoFromList }) {
 	const h2 = useRef(null);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
-
-	function openModalHandler() {
-	
-		setModalIsOpen(true);
-	}
-
-	function closeModalHandler() {
-		setModalIsOpen(false);
-	}
-
 	return (
 		<>
 			<div>
 				<div className='card'>
 					<h2 ref={h2}>{title}</h2>
 					<div className='actions'>
-						<button onClick={openModalHandler} className='btn'>
+						<button onClick={() => 	setModalIsOpen(true)} className='btn'>
 							delete
 						</button>
 					</div>
@@ -30,11 +20,11 @@ function Todo({ title, removeTodoFromList }) {
 			</div>
 			{modalIsOpen && (
 				<Modal
-					onCancel={closeModalHandler}
+					onCancel={() => setModalIsOpen(false)}
 					onConfirm={() => removeTodoFromList(h2.current.innerText)}
 				/>
 			)}
-			{modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
+			{modalIsOpen && <Backdrop onCancel={() => setModalIsOpen(false)} />}
 		</>
 	);
 }
